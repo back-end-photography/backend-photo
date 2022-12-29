@@ -10,8 +10,8 @@ class Core
 
         $response = new Response();
 
-        if (trim($data_input) == "" || !json_decode($data_input)) {
-            echo ($response->error_400());
+        if ($data_input == null || !json_decode($data_input)) {
+            echo json_encode($response->error_400());
             return false;
         } else {
             return true;

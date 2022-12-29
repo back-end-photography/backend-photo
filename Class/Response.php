@@ -19,8 +19,6 @@ class Response {
         );
         return $this->response;
     }
-    //solo comentario
-
     public function error_400(){
         $this->response['status']= "error";
         $this->response['result'] = array(
