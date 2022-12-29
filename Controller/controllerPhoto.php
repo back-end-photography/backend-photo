@@ -16,26 +16,31 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     case "GET":
 
-        if ((isset($_GET["id"]))) {
-            $result = $service->search_by_id($_GET["id"]);
-        } else {
 
-            $result = $service->list();
+        if ($validation->DataValidation($_GET["id"], "key")) {
+            if ((isset($_GET["id"]))) {
+                $result = $service->search_by_id($_GET["id"]);
+            } else {
+
+                $result = $service->list();
+            }
+            echo json_encode($result);
         }
-        echo json_encode($result);
         break;
     case "POST":
-        if ($validation->DataValidation($req)) {
+        if ($validation->DataValidation($req, "format")) {
 
             $result = $service->insert($req);
         }
         break;
     case "PUT":
-        if ($validation->DataValidation($req)) {
+        if ($validation->DataValidation($req, "format")) {
             $result = $service->update($req);
         }
         break;
     case "DELETE":
+        if ($validation->DataValidation($_GET["id"], "key")) {
         $result = $service->delete($_GET["id"]);
+        }
         break;
 }
